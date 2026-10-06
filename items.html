@@ -1,0 +1,39 @@
+<!DOCTYPE html> <!-- HTML5 -->
+<html lang="ru"> <!-- язык страницы -->
+<head>
+  <meta charset="utf-8"> <!-- кодировка -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- адаптивность -->
+  <title>Предметы — Portal 2 Wiki</title> <!-- заголовок вкладки -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=block" rel="stylesheet"> <!-- шрифт -->
+  <link rel="stylesheet" href="style.css"> <!-- общие стили -->
+</head>
+<body class="inner bg-items">
+  <header class="nav"> <!-- шапка, такая же как на главной -->
+    <a class="logo" href="index.html">Portal 2 Wiki</a> <!-- логотип -->
+    <nav class="nav-links" aria-label="Основная"> <!-- меню; aria-current подсвечивает текущую страницу -->
+      <a href="walkthrough.html">Прохождение</a>
+      <a href="lore.html">Лор</a>
+      <a href="items.html" aria-current="page">Предметы</a>
+      <a href="secrets.html">Секреты</a>
+      <a href="easter-eggs.html">Пасхалки</a>
+    </nav>
+    <a class="btn btn-ghost" href="index.html">На главную</a> <!-- кнопка возврата -->
+  </header>
+  <main class="page"> <!-- колонка статьи -->
+    <h1>Предметы</h1> <!-- заголовок страницы -->
+    <p class="lead">Всё оборудование, которым вы пользуетесь в тестовых камерах.</p> <!-- вступление -->
+
+    <div class="grid"> <!-- сетка предметов -->
+      <div class="card"><h3>Портальная пушка</h3><p>Создаёт два связанных портала на плоских поверхностях.</p></div>
+      <div class="card blue"><h3>Гель отталкивания</h3><p>Синий. Подбрасывает всё, что на него приземляется.</p></div>
+      <div class="card"><h3>Гель ускорения</h3><p>Оранжевый. Разгоняет вас по поверхности.</p></div>
+      <div class="card blue"><h3>Гель портала</h3><p>Белый. Делает любую поверхность пригодной для порталов.</p></div>
+      <div class="card"><h3>Воронка</h3><p>Луч, переносящий предметы и игрока по воздуху.</p></div>
+      <div class="card blue"><h3>Световой мост</h3><p>Создаёт прочный проход над пропастью.</p></div>
+      <div class="card"><h3>Куб-переключатель</h3><p>Нужен для кнопок; отдельный вариант — перенаправляющий лазер.</p></div>
+      <div class="card blue"><h3>Турели</h3><p>Стреляют по замеченному игроку; можно уронить или отключить.</p></div>
+    </div>
+  </main>
+  <footer class="footer">Неофициальный фан-сайт. Portal 2 © Valve Corporation.</footer> <!-- подвал -->
+</body>
+</html>

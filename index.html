@@ -1,0 +1,72 @@
+<!DOCTYPE html> <!-- говорим браузеру, что это HTML5 -->
+<html lang="ru"> <!-- корневой элемент, язык страницы — русский -->
+<head> <!-- служебная часть: не отображается на странице -->
+  <meta charset="utf-8"> <!-- кодировка, чтобы кириллица читалась правильно -->
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"> <!-- корректный масштаб на телефонах -->
+  <title>Portal 2 Wiki — всё об Aperture Science</title> <!-- заголовок вкладки браузера -->
+  <meta name="description" content="Вики по Portal 2: прохождение, лор, предметы, секреты и пасхалки."> <!-- описание для поисковиков -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"> <!-- заранее открываем соединение с Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin> <!-- то же для сервера с файлами шрифтов -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;800&display=block" rel="stylesheet"> <!-- подключаем шрифт Plus Jakarta Sans -->
+  <link rel="stylesheet" href="style.css"> <!-- подключаем общий файл стилей -->
+</head>
+<body> <!-- видимая часть страницы -->
+  <main class="hero"> <!-- главный экран на всю высоту окна -->
+    <div class="portal o" aria-hidden="true"></div> <!-- оранжевый портал (чисто декоративный, скринридер пропускает) -->
+    <div class="portal b" aria-hidden="true"></div> <!-- синий портал -->
+
+    <header class="nav"> <!-- шапка сайта -->
+      <a class="logo" href="index.html">Portal 2 Wiki</a> <!-- логотип-ссылка на главную -->
+      <nav class="nav-links" aria-label="Основная"> <!-- блок основного меню -->
+        <a href="walkthrough.html">Прохождение</a> <!-- ссылка на страницу прохождения -->
+        <a href="lore.html">Лор</a> <!-- ссылка на лор -->
+        <a href="items.html">Предметы</a> <!-- ссылка на предметы -->
+        <a href="secrets.html">Секреты</a> <!-- ссылка на секреты локаций -->
+        <a href="easter-eggs.html">Пасхалки</a> <!-- ссылка на пасхалки -->
+      </nav>
+      <a class="btn btn-primary" href="walkthrough.html">Начать <!-- кнопка в шапке -->
+        <svg class="arw" viewBox="0 0 12 10" fill="none" aria-hidden="true"> <!-- иконка-стрелка, холст 12×10 -->
+          <path d="M0.8 5h10M7.1 1.4 10.9 5l-3.8 3.6" stroke="currentColor" stroke-width="1.35" stroke-linecap="round" stroke-linejoin="round"/> <!-- линия стрелки; цвет берётся от текста кнопки -->
+        </svg>
+      </a>
+    </header>
+
+    <div class="hero-inner"> <!-- центральный блок с текстом -->
+      <h1>Thinking<br>with portals</h1> <!-- главный заголовок в две строки -->
+      <p class="sub">Прохождение, история Aperture Science, предметы, секретные комнаты и все пасхалки Portal 2 — в одном месте.</p> <!-- подзаголовок -->
+      <div class="ctas"> <!-- ряд кнопок -->
+        <a class="btn btn-primary" href="walkthrough.html">Прохождение</a> <!-- основная кнопка -->
+        <a class="btn btn-ghost" href="easter-eggs.html">Пасхалки</a> <!-- второстепенная кнопка-«стекло» -->
+      </div>
+    </div>
+  </main>
+
+  <section class="page"> <!-- блок разделов под героем -->
+    <h2>Разделы вики</h2> <!-- заголовок блока -->
+    <div class="grid"> <!-- сетка карточек -->
+      <a class="card" href="walkthrough.html" style="text-decoration:none"> <!-- карточка = ссылка -->
+        <h3>Прохождение</h3> <!-- название раздела -->
+        <p>История кампании по порядку, без лишних спойлеров в подсказках.</p> <!-- описание -->
+      </a>
+      <a class="card blue" href="lore.html" style="text-decoration:none"> <!-- «blue» меняет цвет полосы -->
+        <h3>Лор</h3>
+        <p>Кейв Джонсон, GLaDOS, Уитли и тайны лаборатории.</p>
+      </a>
+      <a class="card" href="items.html" style="text-decoration:none">
+        <h3>Предметы</h3>
+        <p>Портальная пушка, гели, лучи, мосты и кубы.</p>
+      </a>
+      <a class="card blue" href="secrets.html" style="text-decoration:none">
+        <h3>Секреты локаций</h3>
+        <p>Скрытые комнаты и детали, которые легко пропустить.</p>
+      </a>
+      <a class="card" href="easter-eggs.html" style="text-decoration:none">
+        <h3>Пасхалки</h3>
+        <p>Отсылки, шутки и спрятанные послания разработчиков.</p>
+      </a>
+    </div>
+  </section>
+
+  <footer class="footer">Неофициальный фан-сайт. Portal 2 © Valve Corporation.</footer> <!-- подвал с авторством -->
+</body>
+</html>

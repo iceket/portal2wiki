@@ -1,0 +1,258 @@
+/* ===== 1. ПЕРЕМЕННЫЕ ===== */
+:root {
+  --u: min(calc(100vw / 1280), calc(100dvh / 760)); /* единица масштаба героя: всё в hero кратно ей */
+  --ink: #ffffff;               /* основной цвет текста */
+  --ink-muted: #d6d6d6;         /* приглушённый текст (ссылки, абзацы) */
+  --panel: #181818;             /* тёмные «таблетки» кнопок */
+  --white-btn: #fdfdfd;         /* белая кнопка */
+  --btn-ink: #050505;           /* текст на белой кнопке */
+  --orange: #ff9a1f;            /* оранжевый портал */
+  --blue: #2fa8ff;              /* синий портал */
+  --line: rgba(255, 255, 255, .1); /* тонкие границы */
+}
+
+/* ===== 2. БАЗА ===== */
+* { box-sizing: border-box; }   /* padding не раздувает ширину блоков */
+html { scroll-behavior: smooth; } /* плавный переход по якорям */
+body {
+  margin: 0;                    /* убираем отступ браузера */
+  background: #000;             /* чёрный фон как в референсе */
+  color: var(--ink);            /* белый текст */
+  font-family: 'Plus Jakarta Sans', -apple-system, 'Segoe UI', Roboto, sans-serif; /* шрифт + запасные */
+  font-weight: 400;             /* обычная насыщенность */
+  line-height: 1.65;            /* комфортный интервал строк */
+  -webkit-font-smoothing: antialiased; /* сглаживание в Safari/Chrome */
+}
+a { color: inherit; }           /* ссылки наследуют цвет текста */
+img, svg { max-width: 100%; display: block; } /* картинки не вылезают за экран */
+
+/* ===== 2.1 ОБЩИЙ ФОН (на всех страницах) ===== */
+body::before {
+  content: "";                  /* псевдоэлемент без текста: служит только фоном */
+  position: fixed;              /* прикреплён к окну и не прокручивается */
+  inset: 0;                     /* растянут на весь экран */
+  z-index: -1;                  /* лежит позади всего содержимого */
+  pointer-events: none;         /* клики проходят сквозь фон */
+  background:
+    radial-gradient(ellipse 60% 50% at 8% 0%, rgba(255, 154, 31, .20), transparent 70%),    /* оранжевое свечение в левом верхнем углу */
+    radial-gradient(ellipse 60% 50% at 95% 100%, rgba(47, 168, 255, .22), transparent 70%), /* синее свечение в правом нижнем углу */
+    linear-gradient(rgba(255, 255, 255, .045) 1px, transparent 1px),                         /* горизонтальные линии сетки */
+    linear-gradient(90deg, rgba(255, 255, 255, .045) 1px, transparent 1px),                  /* вертикальные линии сетки */
+    #000;                       /* чёрная основа */
+  background-size: auto, auto, 56px 56px, 56px 56px, auto; /* шаг сетки 56px, свечения без повтора */
+  -webkit-mask-image: radial-gradient(ellipse at 50% 40%, #000 35%, rgba(0, 0, 0, .55) 100%); /* лёгкое затемнение краёв (Safari) */
+  mask-image: radial-gradient(ellipse at 50% 40%, #000 35%, rgba(0, 0, 0, .55) 100%);         /* то же для остальных браузеров */
+}
+/* ===== 2.2 ФОН ВНУТРЕННИХ СТРАНИЦ (только <body class="inner">) ===== */
+body.inner::before {            /* перекрывает фон из 2.1 только на внутренних страницах; index.html не затронут */
+  background:
+    radial-gradient(ellipse 70% 60% at 50% 45%, rgba(0, 0, 0, .72), transparent 80%),        /* тёмное «пятно» под текстом для читаемости */
+    repeating-radial-gradient(circle at 88% 10%, transparent 0 38px, rgba(47, 168, 255, .12) 38px 40px), /* синие круги-волны от портала справа сверху */
+    repeating-radial-gradient(circle at 8% 92%, transparent 0 38px, rgba(255, 154, 31, .12) 38px 40px), /* оранжевые круги-волны от портала слева снизу */
+    linear-gradient(160deg, #04121f 0%, #050608 55%, #1c0e02 100%);                          /* глубокий градиент: от тёмно-синего к тёмно-оранжевому */
+  background-size: auto;        /* сбрасываем размеры сетки из 2.1 */
+  -webkit-mask-image: none;     /* убираем затемнение краёв (Safari) */
+  mask-image: none;             /* убираем затемнение краёв (остальные браузеры) */
+}
+
+/* ===== 2.3 УНИКАЛЬНЫЙ ФОН КАЖДОЙ СТРАНИЦЫ ===== */
+/* walkthrough.html остаётся с кругами-порталами из 2.2; у остальных страниц фон свой */
+
+body.bg-lore::before {          /* ЛОР: тёмно-красный «глаз GLaDOS» */
+  background:
+    radial-gradient(circle at 50% 18%, rgba(255, 60, 40, .35), transparent 38%),   /* красное свечение-«глаз» сверху по центру */
+    repeating-linear-gradient(0deg, rgba(255, 255, 255, .03) 0 1px, transparent 1px 4px), /* тонкие строки, как на старом мониторе */
+    linear-gradient(180deg, #1a0305 0%, #070102 100%);                               /* бордово-чёрный градиент */
+  background-size: auto;        /* без повторов для свечения */
+}
+
+body.bg-items::before {         /* ПРЕДМЕТЫ: синий чертёж */
+  background:
+    linear-gradient(rgba(120, 190, 255, .16) 1px, transparent 1px) 0 0 / 120px 120px, /* крупные горизонтальные линии чертежа */
+    linear-gradient(90deg, rgba(120, 190, 255, .16) 1px, transparent 1px) 0 0 / 120px 120px, /* крупные вертикальные линии */
+    linear-gradient(rgba(120, 190, 255, .07) 1px, transparent 1px) 0 0 / 24px 24px,   /* мелкая горизонтальная сетка */
+    linear-gradient(90deg, rgba(120, 190, 255, .07) 1px, transparent 1px) 0 0 / 24px 24px, /* мелкая вертикальная сетка */
+    #06182f;                    /* синяя основа чертежа */
+}
+
+body.bg-secrets::before {       /* СЕКРЕТЫ: тёмная комната с лучом фонаря */
+  background:
+    conic-gradient(from 160deg at 50% -10%, transparent 0deg, rgba(120, 255, 180, .16) 20deg, transparent 40deg), /* луч света, падающий сверху */
+    repeating-linear-gradient(45deg, rgba(255, 255, 255, .025) 0 2px, transparent 2px 14px), /* диагональная штриховка, как грубая стена */
+    linear-gradient(180deg, #03140f 0%, #020606 100%);                                  /* зелёно-чёрный градиент */
+  background-size: auto;        /* без повторов для луча */
+}
+
+body.bg-eggs::before {          /* ПАСХАЛКИ: фиолетовый «праздник» с точками */
+  background:
+    radial-gradient(rgba(255, 190, 90, .30) 1.5px, transparent 2px) 0 0 / 30px 30px, /* оранжевые точки-конфетти */
+    radial-gradient(rgba(150, 120, 255, .22) 1.5px, transparent 2px) 15px 15px / 30px 30px, /* фиолетовые точки со сдвигом */
+    linear-gradient(135deg, #1b0733 0%, #06020d 100%);                                /* глубокий фиолетовый градиент */
+}
+
+.card { background: rgba(12, 12, 12, .72); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); } /* карточки — матовое стекло, фон под ними просвечивает */
+
+/* ===== 3. ШАПКА (общая для всех страниц) ===== */
+.nav {
+  position: absolute;           /* шапка лежит поверх героя */
+  top: 0; left: 0; right: 0;    /* растянута на всю ширину */
+  height: 67px;                 /* высота шапки */
+  display: flex;                /* логотип, ссылки и кнопка в ряд */
+  align-items: center;          /* выравнивание по вертикали */
+  justify-content: space-between; /* логотип слева, кнопка справа */
+  padding: 0 clamp(20px, 4vw, 52px); /* боковые поля подстраиваются под экран */
+  z-index: 5;                   /* шапка выше остального */
+}
+.logo {
+  font-weight: 800;             /* самый жирный вес шрифта */
+  font-size: 22px;              /* размер логотипа */
+  letter-spacing: .4px;         /* лёгкий разряд букв */
+  text-decoration: none;        /* без подчёркивания */
+}
+.nav-links {
+  display: flex;                /* ссылки в ряд */
+  gap: 24px;                    /* расстояние между ссылками */
+}
+.nav-links a {
+  color: var(--ink-muted);      /* приглушённый цвет */
+  text-decoration: none;        /* без подчёркивания */
+  font-size: 13px;              /* мелкий размер меню */
+  font-weight: 500;             /* средний вес */
+  transition: color .18s ease;  /* плавная смена цвета при наведении */
+}
+.nav-links a:hover,
+.nav-links a[aria-current="page"] { color: var(--orange); } /* наведение и текущая страница */
+
+/* ===== 4. КНОПКИ ===== */
+.btn {
+  display: inline-flex;         /* текст и стрелка в ряд */
+  align-items: center;          /* по центру вертикали */
+  gap: 9px;                     /* расстояние между текстом и стрелкой */
+  height: 42px;                 /* высота кнопки */
+  padding: 0 20px;              /* внутренние боковые отступы */
+  border-radius: 21px;          /* полностью круглые края («таблетка») */
+  font-size: 14px;              /* размер текста */
+  font-weight: 500;             /* средний вес */
+  text-decoration: none;        /* без подчёркивания */
+  transition: background .18s ease, border-color .18s ease; /* плавный hover */
+}
+.btn-primary { background: var(--white-btn); color: var(--btn-ink); } /* белая кнопка */
+.btn-primary:hover { background: #fff; }                              /* чуть ярче при наведении */
+.btn-ghost {
+  background: rgba(0, 0, 0, .78); /* тёмное стекло */
+  border: 1px solid var(--line);  /* тонкая рамка */
+  color: #d9d9d9;                 /* светло-серый текст */
+}
+.btn-ghost:hover { border-color: rgba(255, 255, 255, .25); } /* рамка ярче при наведении */
+.arw { width: 13px; height: 11px; flex: 0 0 auto; }          /* размер стрелки внутри кнопки */
+
+/* ===== 5. ГЕРОЙ ГЛАВНОЙ СТРАНИЦЫ ===== */
+.hero {
+  position: relative;           /* точка отсчёта для слоёв внутри */
+  height: 100dvh;               /* ровно во весь экран */
+  overflow: hidden;             /* ничего не вылезает за края */
+  background:
+    radial-gradient(ellipse at 28% 62%, rgba(255, 154, 31, .22), transparent 45%), /* оранжевое свечение слева */
+    radial-gradient(ellipse at 74% 44%, rgba(47, 168, 255, .24), transparent 45%), /* синее свечение справа */
+    #000;                       /* чёрная основа */
+}
+.portal {
+  position: absolute;           /* свободное позиционирование */
+  width: calc(190 * var(--u));  /* ширина овала портала */
+  height: calc(310 * var(--u)); /* высота овала портала */
+  border-radius: 50%;           /* делаем овал */
+  border: calc(7 * var(--u)) solid; /* толстое кольцо, цвет задаётся ниже */
+  animation: breathe 4.5s ease-in-out infinite; /* медленное «дыхание» свечения */
+}
+.portal.o { /* оранжевый портал */
+  left: 9%; top: 30%;           /* положение слева */
+  border-color: var(--orange);  /* цвет кольца */
+  box-shadow: 0 0 60px var(--orange), inset 0 0 60px rgba(255, 154, 31, .5); /* внешнее и внутреннее свечение */
+  transform: rotate(-12deg);    /* лёгкий наклон */
+}
+.portal.b { /* синий портал */
+  right: 9%; top: 18%;          /* положение справа */
+  border-color: var(--blue);    /* цвет кольца */
+  box-shadow: 0 0 60px var(--blue), inset 0 0 60px rgba(47, 168, 255, .5);
+  transform: rotate(10deg);     /* наклон в другую сторону */
+  animation-delay: -2.2s;       /* порталы дышат не синхронно */
+}
+@keyframes breathe { 50% { opacity: .65; filter: brightness(1.25); } } /* середина цикла: тускнее и ярче */
+
+.hero-inner {
+  position: absolute;           /* центрируем блок */
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%); /* сдвиг на половину своих размеров = точный центр */
+  width: max-content;           /* ширина по содержимому */
+  max-width: calc(100vw - 40px);/* но не шире экрана */
+  text-align: center;           /* текст по центру */
+  z-index: 2;                   /* выше порталов */
+}
+.hero h1 {
+  margin: 0;                    /* без внешних отступов */
+  font-weight: 500;             /* средний вес, как в референсе */
+  font-size: clamp(44px, calc(89 * var(--u)), 110px); /* крупный заголовок, масштабируется */
+  line-height: 1.02;            /* плотные строки */
+  letter-spacing: -.012em;      /* чуть сжатые буквы */
+}
+.sub {
+  margin: 18px auto 0;          /* отступ сверху и центровка по горизонтали */
+  max-width: 46ch;              /* ограничение длины строки */
+  font-weight: 300;             /* тонкий вес */
+  font-size: clamp(15px, calc(17.4 * var(--u)), 19px); /* адаптивный размер */
+  color: #f6f6f6;               /* почти белый */
+}
+.ctas {
+  margin-top: 24px;             /* отступ от текста */
+  display: flex;                /* кнопки в ряд */
+  justify-content: center;      /* по центру */
+  flex-wrap: wrap;              /* на узких экранах переносятся */
+  gap: 8px;                     /* расстояние между кнопками */
+}
+
+/* ===== 6. ВНУТРЕННИЕ СТРАНИЦЫ ===== */
+.page {
+  max-width: 920px;             /* ширина колонки статьи */
+  margin: 0 auto;               /* центрируем колонку */
+  padding: 120px 24px 80px;     /* сверху место под шапку */
+}
+.page h1 {
+  font-size: clamp(36px, 6vw, 64px); /* адаптивный заголовок */
+  font-weight: 500;             /* средний вес */
+  line-height: 1.05;            /* плотные строки */
+  letter-spacing: -.02em;       /* сжатые буквы */
+  margin: 0 0 16px;             /* отступ снизу */
+}
+.lead { font-size: 18px; font-weight: 300; color: var(--ink-muted); max-width: 60ch; } /* вступительный абзац */
+.page h2 { font-size: 26px; font-weight: 600; margin: 48px 0 8px; } /* подзаголовки разделов */
+.page p, .page li { color: var(--ink-muted); max-width: 68ch; }      /* абзацы: удобная длина строки */
+.card {
+  border: 1px solid var(--line); /* тонкая рамка */
+  border-left: 3px solid var(--orange); /* акцентная полоса слева */
+  border-radius: 14px;          /* скруглённые углы */
+  padding: 16px 20px;           /* внутренние отступы */
+  margin: 14px 0;               /* расстояние между карточками */
+}
+.card.blue { border-left-color: var(--blue); } /* синий вариант полосы */
+.card h3 { margin: 0 0 4px; font-size: 17px; font-weight: 600; } /* заголовок карточки */
+.card p { margin: 0; }          /* убираем лишний отступ абзаца */
+.grid {
+  display: grid;                /* сетка карточек */
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* столько колонок, сколько влезет */
+  gap: 0 16px;                  /* промежуток между колонками */
+}
+.footer { padding: 32px 24px; text-align: center; font-size: 13px; color: #8a8a8a; border-top: 1px solid var(--line); } /* подвал */
+
+/* ===== 7. ДОСТУПНОСТЬ И АДАПТИВ ===== */
+a:focus-visible { outline: 2px solid #a78bfa; outline-offset: 3px; border-radius: 99px; } /* видимый фокус с клавиатуры */
+@media (max-width: 760px) {
+  .nav { height: auto; flex-wrap: wrap; padding-top: 14px; gap: 6px 16px; } /* шапка растёт и переносит ссылки */
+  .nav-links { gap: 6px 14px; flex-wrap: wrap; } /* ссылки переносятся на новую строку */
+  .nav > .btn { display: none; }  /* кнопку в шапке прячем, она дублируется в герое */
+  .page { padding-top: 150px; }   /* больше места под выросшую шапку */
+  .portal { opacity: .55; }     /* порталы тусклее, чтобы не мешать тексту */
+}
+@media (prefers-reduced-motion: reduce) {
+  .portal { animation: none; }  /* отключаем анимацию, если пользователь так просит */
+  html { scroll-behavior: auto; }
+}
